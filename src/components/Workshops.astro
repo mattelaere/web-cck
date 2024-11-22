@@ -1,4 +1,7 @@
 ---
+import { getCollection } from "astro:content";
+import WorkshopCard from "./WorkshopCard.astro";
+const AllWorkshops = await getCollection('workshops');
 
 ---
 
@@ -12,7 +15,13 @@
     </p>
   </header>
   <ul>
-    <li>##WORKSHOP##</li>
+    {
+      AllWorkshops.map((workshop) => (
+        <li>
+          <WorkshopCard workshop={workshop} />
+        </li>
+      ))
+    }
   </ul>
 </section>
 
