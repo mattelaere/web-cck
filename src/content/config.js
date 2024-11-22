@@ -26,8 +26,17 @@ const foundationsCollection = defineCollection({
     }),
 });
 
+const newsCollection = defineCollection({
+  schema: () =>
+    z.object({
+      title: z.string(),
+      date: z.date(),
+    }),
+});
+
 export const collections = {
   team: teamCollection,
   foundations: foundationsCollection,
   workshops: workshopsCollection,
+  news: newsCollection,
 };

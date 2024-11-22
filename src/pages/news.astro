@@ -1,24 +1,26 @@
 ---
 import Base from "../layouts/Base.astro";
+import { getCollection } from "astro:content";
+const AllNews = await getCollection("news");
 ---
 
 <Base title="News">
   <div class="container">
     <h2><span>News</span></h2>
     <ul>
-
-            <li>
-              <article>
-                <h3>##TITLE##</h3>
-                <time datetime={##DATE##}>
-                  {##DATE##}
-                </time>
-                <div class="md">
-                  ##CONTENT##
-                </div>
-              </article>
-            </li>
-
+      {
+        AllNews.map((news) => (
+          <li>
+            <article>
+              <h3>{news.data.title}</h3>
+              <time datetime={news.data.date.toDateString()}>
+                {news.data.date.toDateString()}
+              </time>
+              <div class="md">{news.body}</div>
+            </article>
+          </li>
+        ))
+      }
     </ul>
   </div>
 </Base>
