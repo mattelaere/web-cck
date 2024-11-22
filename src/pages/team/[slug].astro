@@ -1,21 +1,30 @@
 ---
+import { getCollection } from "astro:content";
 import Markdown from "../../layouts/Markdown.astro";
 import { Image } from "astro:assets";
 
 export async function getStaticPaths() {
+  const allTeams = await getCollection("team");
+  return allTeams.map((team) => ({
+    params: { slug: team.slug.toString() },
+    props: {
+      team
+    }
+  }));
 
 }
 
+const {team} = Astro.props
 ---
 
 <Markdown>
   <div slot="top">
     <a href="/#team">Team</a>
-    <h2><span>{##NAME##}</span></h2>
+    <h2><span>{team.data.name}</span></h2>
   </div>
-  ##CONTENT##
+  {team.body}
   <div slot="sidebar" class="profile">
-    <Image width="300" height="300" src={##PIC##} alt="" class="image" />
+    <Image width="300" height="300" src={team.data.pic} alt="" class="image" />
   </div>
 </Markdown>
 
