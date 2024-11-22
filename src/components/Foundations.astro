@@ -1,5 +1,15 @@
 ---
+import FoundationsCard from './FoundationsCard.astro';
+import { getCollection } from 'astro:content';
 
+const allFoundations = await getCollection('foundations');
+
+console.log(allFoundations);
+
+// // Only return posts with `draft: true` in the frontmatter
+// const draftBlogPosts = await getCollection('blog', ({ data }) => {
+//   return data.draft === true;
+// });
 ---
 
 <section class="container" id="foundations">
@@ -11,7 +21,11 @@
     </p>
   </header>
   <ul>
-    <li>##FOUNDATION##</li>
+    {allFoundations.map((foundation) => (
+      <li>
+        <FoundationsCard foundation={foundation} />
+      </li>
+    ))}
   </ul>
 </section>
 
